@@ -2,6 +2,8 @@ backend:
   name: github
   repo: cjystone/web
   branch: main
+  base_url: https://decap-cms-oauth.vercel.app
+  auth_endpoint: api/auth
 
 media_folder: "images/products"
 public_folder: "/images/products"
