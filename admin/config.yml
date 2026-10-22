@@ -5,19 +5,62 @@ backend:
   base_url: https://decap-cms-oauth.vercel.app
   auth_endpoint: api/auth
 
-media_folder: "images/products"
-public_folder: "/images/products"
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
+  # 1. 产品管理模块
   - name: "products"
-    label: "产品管理 (Products)"
+    label: "产品中心 (Products)"
     folder: "content/products"
     create: true
     slug: "{{slug}}"
     fields:
       - {label: "产品名称 (Title)", name: "title", widget: "string"}
+      - {label: "产品分类 (Category)", name: "category", widget: "select", options: ["Vacuum Tumblers", "Titanium Bottles", "Coffee Mugs", "Cooler Boxes", "Sports Bottles"]}
       - {label: "产品型号 (Model / SKU)", name: "model", widget: "string"}
       - {label: "产品主图 (Featured Image)", name: "image", widget: "image"}
       - {label: "起订量 / 参考价 (MOQ / Price)", name: "moq", widget: "string", required: false}
       - {label: "规格参数 (Specifications)", name: "specs", widget: "text", required: false}
       - {label: "产品详细描述 (Description)", name: "body", widget: "markdown"}
+
+  # 2. 首页核心内容管理模块（Banner / 标语 / 优势）
+  - name: "home"
+    label: "首页内容配置 (Home Page)"
+    files:
+      - file: "content/settings/home.json"
+        label: "首页横幅与文案"
+        name: "home_settings"
+        fields:
+          - {label: "主标语 (Hero Title)", name: "hero_title", widget: "string"}
+          - {label: "副标语 (Hero Subtitle)", name: "hero_subtitle", widget: "text"}
+          - {label: "首屏横幅大图 (Hero Banner)", name: "hero_banner", widget: "image"}
+          - {label: "核心优势 1 (Feature 1)", name: "feature1", widget: "string"}
+          - {label: "核心优势 2 (Feature 2)", name: "feature2", widget: "string"}
+          - {label: "核心优势 3 (Feature 3)", name: "feature3", widget: "string"}
+
+  # 3. 公司简介与工厂实力 (About Us & Factory)
+  - name: "about"
+    label: "关于我们与工厂实力 (About & Factory)"
+    files:
+      - file: "content/settings/about.json"
+        label: "公司与工厂信息"
+        name: "about_settings"
+        fields:
+          - {label: "公司名称 (Company Name)", name: "company_name", widget: "string"}
+          - {label: "工厂面积 (Factory Area)", name: "factory_area", widget: "string"}
+          - {label: "日/年产能 (Production Capacity)", name: "capacity", widget: "string"}
+          - {label: "合规认证 (Certifications)", name: "certs", widget: "string"}
+          - {label: "公司详细介绍 (About Details)", name: "about_text", widget: "markdown"}
+
+  # 4. 新闻与行业动态 (News / Blog)
+  - name: "news"
+    label: "新闻与行业动态 (News & Insights)"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "新闻标题 (Title)", name: "title", widget: "string"}
+      - {label: "发布日期 (Publish Date)", name: "date", widget: "datetime"}
+      - {label: "封面图 (Cover Image)", name: "cover", widget: "image"}
+      - {label: "文章正文 (Content)", name: "body", widget: "markdown"}
