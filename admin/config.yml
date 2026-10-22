@@ -9,9 +9,6 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  # ==========================================
-  # 1. 网站配置管理
-  # ==========================================
   - name: "site_settings"
     label: "⚙️ 网站配置管理"
     delete: false
@@ -20,239 +17,117 @@ collections:
         label: "网站基本信息配置"
         file: "content/settings/general.json"
         fields:
-          - label: "网站标题 (Site Title)"
-            name: "site_title"
-            widget: "string"
-          - label: "企业全称 (Company Legal Name)"
-            name: "company_name"
-            widget: "string"
-          - label: "网站域名 (Website URL)"
-            name: "site_url"
-            widget: "string"
-            default: "https://www.fjwmkc.com"
-          - label: "网站 Logo"
-            name: "logo"
-            widget: "image"
-          - label: "Favicon 浏览器图标"
-            name: "favicon"
-            widget: "image"
-          - label: "全球 SEO 核心关键词"
-            name: "meta_keywords"
-            widget: "string"
-          - label: "全球 SEO 网站描述"
-            name: "meta_description"
-            widget: "text"
-          - label: "版权信息 (Copyright)"
-            name: "copyright"
-            widget: "string"
-            default: "© 2026 All Rights Reserved."
+          - {label: "网站标题 (Site Title)", name: "site_title", widget: "string"}
+          - {label: "企业全称", name: "company_name", widget: "string"}
+          - {label: "网站域名", name: "site_url", widget: "string", default: "https://www.fjwmkc.com"}
+          - {label: "网站 Logo", name: "logo", widget: "image"}
+          - {label: "Favicon 图标", name: "favicon", widget: "image"}
+          - {label: "SEO 关键词", name: "meta_keywords", widget: "string"}
+          - {label: "SEO 描述", name: "meta_description", widget: "text"}
+          - {label: "版权信息", name: "copyright", widget: "string", default: "© 2026 All Rights Reserved."}
 
       - name: "navigation"
         label: "网站栏目设置"
         file: "content/settings/navigation.json"
         fields:
-          - label: "主导航菜单"
+          - label: "导航栏目列表"
             name: "menu_items"
             widget: "list"
             fields:
-              - label: "栏目名称"
-                name: "label"
-                widget: "string"
-              - label: "链接地址 (如 #contact)"
-                name: "url"
-                widget: "string"
+              - {label: "栏目名称", name: "label", widget: "string"}
+              - {label: "跳转链接", name: "url", widget: "string"}
 
       - name: "customization"
         label: "个性化设置"
         file: "content/settings/customization.json"
         fields:
-          - label: "主题主色调"
-            name: "primary_color"
-            widget: "color"
-            default: "#1b4d3e"
-          - label: "辅助强调色"
-            name: "accent_color"
-            widget: "color"
-            default: "#e67e22"
-          - label: "询盘接收接口"
-            name: "formspree_url"
-            widget: "string"
-            default: "https://formspree.io/f/xkjodygl"
-          - label: "WhatsApp 客服号码"
-            name: "whatsapp_number"
-            widget: "string"
-            required: false
+          - {label: "主题主色调", name: "primary_color", widget: "color", default: "#1b4d3e"}
+          - {label: "询盘接收接口", name: "formspree_url", widget: "string", default: "https://formspree.io/f/xkjodygl"}
+          - {label: "WhatsApp 客服号", name: "whatsapp_number", widget: "string", required: false}
 
       - name: "banners"
         label: "网站Banner图"
         file: "content/settings/banners.json"
         fields:
-          - label: "首屏横幅轮播列表"
+          - label: "横幅轮播列表"
             name: "banner_list"
             widget: "list"
             fields:
-              - label: "Banner 背景大图"
-                name: "image"
-                widget: "image"
-              - label: "主标语"
-                name: "title"
-                widget: "string"
-              - label: "副标语"
-                name: "subtitle"
-                widget: "string"
-              - label: "按钮文字"
-                name: "btn_text"
-                widget: "string"
-                default: "Contact Us"
-              - label: "按钮跳转链接"
-                name: "btn_link"
-                widget: "string"
-                default: "#contact"
+              - {label: "Banner大图", name: "image", widget: "image"}
+              - {label: "主标题", name: "title", widget: "string"}
+              - {label: "副标题", name: "subtitle", widget: "string"}
+              - {label: "按钮文字", name: "btn_text", widget: "string", default: "Contact Us"}
+              - {label: "按钮链接", name: "btn_link", widget: "string", default: "#contact"}
 
       - name: "about_us"
-        label: "关于我们 - 工厂实力"
+        label: "关于我们 - 联系信息"
         file: "content/settings/about.json"
         fields:
-          - label: "工厂/企业介绍"
-            name: "about_text"
-            widget: "markdown"
-          - label: "工厂占地面积"
-            name: "factory_area"
-            widget: "string"
-            default: "45,000 m²"
-          - label: "年产能"
-            name: "capacity"
-            widget: "string"
-            default: "60,000,000 Pcs"
-          - label: "全球出口国家数"
-            name: "countries"
-            widget: "string"
-            default: "80+ Countries"
-          - label: "全检质检率"
-            name: "inspection_rate"
-            widget: "string"
-            default: "100% Inspection"
-          - label: "工厂实拍图集"
+          - {label: "公司介绍", name: "about_text", widget: "markdown"}
+          - {label: "工厂面积", name: "factory_area", widget: "string", default: "45,000 m²"}
+          - {label: "年产能", name: "capacity", widget: "string", default: "60,000,000 Pcs"}
+          - {label: "出口国家数", name: "countries", widget: "string", default: "80+ Countries"}
+          - label: "工厂实拍图片"
             name: "factory_images"
             widget: "list"
-            field:
-              label: "图片"
-              name: "image"
-              widget: "image"
+            field: {label: "图片", name: "image", widget: "image"}
 
       - name: "contact_info"
         label: "联系我们"
         file: "content/settings/contact.json"
         fields:
-          - label: "官方联系邮箱"
-            name: "email"
-            widget: "string"
-          - label: "业务联系电话"
-            name: "phone"
-            widget: "string"
-          - label: "企业/工厂地址"
-            name: "address"
-            widget: "string"
-          - label: "工作时间"
-            name: "hours"
-            widget: "string"
-            default: "Mon - Sat: 8:30 - 18:00 (GMT+8)"
+          - {label: "联系邮箱", name: "email", widget: "string"}
+          - {label: "联系电话", name: "phone", widget: "string"}
+          - {label: "工厂地址", name: "address", widget: "string"}
+          - {label: "服务时间", name: "hours", widget: "string", default: "Mon - Sat: 8:30 - 18:00 (GMT+8)"}
 
       - name: "media_assets"
         label: "网站其他图片管理"
         file: "content/settings/media_assets.json"
         fields:
-          - label: "资质与认证证书列表"
+          - label: "证书列表"
             name: "cert_images"
             widget: "list"
             fields:
-              - label: "证书名称"
-                name: "cert_name"
-                widget: "string"
-              - label: "证书扫描件"
-                name: "image"
-                widget: "image"
-          - label: "合作品牌 Logo"
-            name: "partner_logos"
-            widget: "list"
-            field:
-              label: "Logo 图标"
-              name: "image"
-              widget: "image"
+              - {label: "证书名称", name: "cert_name", widget: "string"}
+              - {label: "证书扫描件", name: "image", widget: "image"}
 
-  # ==========================================
-  # 2. 产品类别
-  # ==========================================
   - name: "product_categories_settings"
     label: "📂 产品类别"
     delete: false
     files:
       - name: "categories_file"
-        label: "管理产品类别"
+        label: "管理产品分类"
         file: "content/settings/product_categories.json"
         fields:
-          - label: "产品分类列表"
+          - label: "分类列表"
             name: "categories"
             widget: "list"
             fields:
-              - label: "分类名称"
-                name: "name"
-                widget: "string"
-              - label: "分类标识 Slug"
-                name: "slug"
-                widget: "string"
-              - label: "分类封面图"
-                name: "cover"
-                widget: "image"
-                required: false
+              - {label: "分类名称", name: "name", widget: "string"}
+              - {label: "分类标识 Slug", name: "slug", widget: "string"}
+              - {label: "封面图", name: "cover", widget: "image", required: false}
 
-  # ==========================================
-  # 3. 产品
-  # ==========================================
   - name: "products"
     label: "📦 产品"
     folder: "content/products"
     create: true
     slug: "{{slug}}"
     fields:
-      - label: "产品标题"
-        name: "title"
-        widget: "string"
-      - label: "所属类别标识 Slug"
-        name: "category"
-        widget: "string"
-      - label: "产品型号 SKU"
-        name: "model"
-        widget: "string"
-      - label: "产品主图"
-        name: "image"
-        widget: "image"
-      - label: "产品细节图集"
+      - {label: "产品标题", name: "title", widget: "string"}
+      - {label: "所属类别标识 Slug", name: "category", widget: "string"}
+      - {label: "产品型号 SKU", name: "model", widget: "string"}
+      - {label: "产品主图", name: "image", widget: "image"}
+      - label: "细节图集"
         name: "gallery"
         widget: "list"
         required: false
-        field:
-          label: "图片"
-          name: "image"
-          widget: "image"
-      - label: "起订量与价格 (MOQ / Price)"
-        name: "price_moq"
-        widget: "string"
-        default: "MOQ: 500 pcs | $2.50 - $3.80"
-      - label: "规格参数与工艺"
-        name: "specs"
-        widget: "text"
-      - label: "保温保冷时长"
-        name: "thermal"
-        widget: "string"
-        default: "Hot 24 Hours / Cold 48 Hours"
-      - label: "产品详情描述"
-        name: "body"
-        widget: "markdown"
+        field: {label: "图片", name: "image", widget: "image"}
+      - {label: "起订量与参考价", name: "price_moq", widget: "string", default: "MOQ: 500 pcs | $2.50 - $3.80"}
+      - {label: "规格参数与材质", name: "specs", widget: "text"}
+      - {label: "保温保冷时长", name: "thermal", widget: "string", default: "Hot 24 Hours / Cold 48 Hours"}
+      - {label: "产品详细介绍", name: "body", widget: "markdown"}
 
-  # ==========================================
-  # 4. 新闻类别
-  # ==========================================
   - name: "news_categories_settings"
     label: "📂 新闻类别"
     delete: false
@@ -265,44 +140,22 @@ collections:
             name: "categories"
             widget: "list"
             fields:
-              - label: "分类名称"
-                name: "name"
-                widget: "string"
-              - label: "分类标识 Slug"
-                name: "slug"
-                widget: "string"
+              - {label: "分类名称", name: "name", widget: "string"}
+              - {label: "分类标识 Slug", name: "slug", widget: "string"}
 
-  # ==========================================
-  # 5. 新闻
-  # ==========================================
   - name: "news"
     label: "📰 新闻"
     folder: "content/news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - label: "新闻标题"
-        name: "title"
-        widget: "string"
-      - label: "所属分类 Slug"
-        name: "category"
-        widget: "string"
-      - label: "发布日期"
-        name: "date"
-        widget: "datetime"
-      - label: "封面图"
-        name: "cover"
-        widget: "image"
-      - label: "摘要"
-        name: "summary"
-        widget: "text"
-      - label: "文章正文"
-        name: "body"
-        widget: "markdown"
+      - {label: "新闻标题", name: "title", widget: "string"}
+      - {label: "所属分类 Slug", name: "category", widget: "string"}
+      - {label: "发布日期", name: "date", widget: "datetime"}
+      - {label: "封面图", name: "cover", widget: "image"}
+      - {label: "摘要", name: "summary", widget: "text"}
+      - {label: "新闻内容", name: "body", widget: "markdown"}
 
-  # ==========================================
-  # 6. 行业知识类别
-  # ==========================================
   - name: "knowledge_categories_settings"
     label: "📂 行业知识类别"
     delete: false
@@ -315,53 +168,16 @@ collections:
             name: "categories"
             widget: "list"
             fields:
-              - label: "分类名称"
-                name: "name"
-                widget: "string"
-              - label: "分类标识 Slug"
-                name: "slug"
-                widget: "string"
+              - {label: "分类名称", name: "name", widget: "string"}
+              - {label: "分类标识 Slug", name: "slug", widget: "string"}
 
-  # ==========================================
-  # 7. 行业知识
-  # ==========================================
   - name: "knowledge"
     label: "💡 行业知识"
     folder: "content/knowledge"
     create: true
     slug: "{{slug}}"
     fields:
-      - label: "知识库标题"
-        name: "title"
-        widget: "string"
-      - label: "所属知识类别 Slug"
-        name: "category"
-        widget: "string"
-      - label: "技术图解"
-        name: "image"
-        widget: "image"
-        required: false
-      - label: "技术核心内容"
-        name: "body"
-        widget: "markdown"
-# ==========================================
-  # 8. 后台成员账号管理 (用户与权限)
-  # ==========================================
-  - name: "staff_accounts"
-    label: "👥 后台账号管理"
-    folder: "content/staff"
-    create: true
-    slug: "{{fields.username}}"
-    fields:
-      - label: "用户名 (邮箱或手机号)"
-        name: "username"
-        widget: "string"
-        hint: "输入同事的邮箱 (如 sales@company.com) 或手机号 (如 13800000000)"
-      - label: "使用人姓名 / 岗位"
-        name: "staff_name"
-        widget: "string"
-      - label: "密码状态 / 初始密码"
-        name: "password"
-        widget: "string"
-        default: "123456"
-        hint: "设置初始密码 (同事首次登录后可自行修改)"
+      - {label: "文章标题", name: "title", widget: "string"}
+      - {label: "所属类别 Slug", name: "category", widget: "string"}
+      - {label: "示意图", name: "image", widget: "image", required: false}
+      - {label: "技术内容", name: "body", widget: "markdown"}
