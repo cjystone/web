@@ -4,24 +4,102 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Content Manager</title>
+  <style>
+    /* 顶部悬浮的快捷管理工具栏 */
+    #admin-topbar {
+      position: fixed;
+      top: 10px;
+      right: 80px;
+      z-index: 99999;
+      display: flex;
+      gap: 10px;
+    }
+    .topbar-btn {
+      background: #1e293b;
+      color: #ffffff;
+      border: 1px solid #475569;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+    }
+    .topbar-btn:hover {
+      background: #334155;
+    }
+    .btn-logout {
+      background: #ef4444;
+      border-color: #dc2626;
+    }
+    .btn-logout:hover {
+      background: #dc2626;
+    }
+  </style>
   <script>
-    // 在这里设置你的后台专属访问密码：
-    const ADMIN_PASSWORD = "123456";
+    // 1. 初始化密码系统（优先读取浏览器保存的修改后密码，没有则使用默认密码）
+    const DEFAULT_PASS = "123456"; // 首次初始密码，可直接在此修改
+    if (!localStorage.getItem("admin_portal_password")) {
+      localStorage.setItem("admin_portal_password", DEFAULT_PASS);
+    }
 
-    // 验证当前浏览器会话是否已经输入过密码
+    // 2. 检查会话权限
     if (sessionStorage.getItem("admin_authenticated") !== "true") {
-      let inputPass = prompt("请输入后台管理密码 / Please enter admin password:");
-      if (inputPass === ADMIN_PASSWORD) {
+      let currentCorrectPass = localStorage.getItem("admin_portal_password");
+      let inputPass = prompt("请输入后台管理密码 / Enter admin password:");
+      if (inputPass === currentCorrectPass) {
         sessionStorage.setItem("admin_authenticated", "true");
       } else {
         alert("密码错误，禁止访问！/ Access Denied!");
-        window.location.href = "/"; // 密码错误直接跳转回首页
+        window.location.href = "/";
+      }
+    }
+
+    // 3. 修改密码功能
+    function changeAdminPassword() {
+      let currentPass = localStorage.getItem("admin_portal_password");
+      let oldInput = prompt("请输入当前旧密码：");
+      if (oldInput !== currentPass) {
+        alert("原密码输入错误，无法修改！");
+        return;
+      }
+      let newPass1 = prompt("请输入新的管理密码：");
+      if (!newPass1 || newPass1.trim() === "") {
+        alert("新密码不能为空！");
+        return;
+      }
+      let newPass2 = prompt("请再次确认新密码：");
+      if (newPass1 !== newPass2) {
+        alert("两次输入的新密码不一致，修改失败！");
+        return;
+      }
+      localStorage.setItem("admin_portal_password", newPass1.trim());
+      alert("密码修改成功！下次登录请使用新密码。");
+    }
+
+    // 4. 退出登录功能
+    function logoutAdmin() {
+      if (confirm("确定要退出后台管理并锁定系统吗？")) {
+        // 清除会话授权
+        sessionStorage.removeItem("admin_authenticated");
+        // 清除 Decap CMS 和 GitHub 的本地授权缓存
+        localStorage.removeItem("decap-cms-user");
+        localStorage.removeItem("netlify-cms-user");
+        // 刷新重载，自动锁死
+        window.location.reload();
       }
     }
   </script>
 </head>
 <body>
-  <!-- 引入 Decap CMS 核心程序 -->
+  <!-- 顶部独立操作条：包含修改密码和退出 -->
+  <div id="admin-topbar">
+    <button class="topbar-btn" onclick="changeAdminPassword()">🔑 修改登录密码</button>
+    <button class="topbar-btn btn-logout" onclick="logoutAdmin()">🚪 退出登录</button>
+  </div>
+
+  <!-- 引入 Decap CMS 核心库 -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
