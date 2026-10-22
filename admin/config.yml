@@ -344,3 +344,24 @@ collections:
       - label: "技术核心内容"
         name: "body"
         widget: "markdown"
+# ==========================================
+  # 8. 后台成员账号管理 (用户与权限)
+  # ==========================================
+  - name: "staff_accounts"
+    label: "👥 后台账号管理"
+    folder: "content/staff"
+    create: true
+    slug: "{{fields.username}}"
+    fields:
+      - label: "用户名 (邮箱或手机号)"
+        name: "username"
+        widget: "string"
+        hint: "输入同事的邮箱 (如 sales@company.com) 或手机号 (如 13800000000)"
+      - label: "使用人姓名 / 岗位"
+        name: "staff_name"
+        widget: "string"
+      - label: "密码状态 / 初始密码"
+        name: "password"
+        widget: "string"
+        default: "123456"
+        hint: "设置初始密码 (同事首次登录后可自行修改)"
