@@ -9,15 +9,20 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "products"
-    label: "📦 产品管理"
-    folder: "content/products"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "产品标题 (Title)", name: "title", widget: "string"}
-      - {label: "产品型号 (Model / SKU)", name: "model", widget: "string", default: "MODEL-01", required: false}
-      - {label: "最低起订量与参考价", name: "price_moq", widget: "string", default: "MOQ: 500 pcs | $2.50 - $3.80", required: false}
-      - {label: "规格材质参数", name: "specs", widget: "text", default: "食品级标准材质，双层真空保温保冷", required: false}
-      - {label: "产品主图 (Featured Image)", name: "image", widget: "image", required: false}
-      - {label: "产品详细介绍", name: "body", widget: "markdown", required: false}
+  - name: "products_database"
+    label: "📦 网站产品库"
+    delete: false
+    files:
+      - name: "product_list"
+        label: "管理所有产品"
+        file: "content/products.json"
+        fields:
+          - label: "产品列表 (在此添加新产品)"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "产品标题 (Title)", name: "title", widget: "string"}
+              - {label: "产品型号 (SKU / Model)", name: "model", widget: "string", default: "MODEL-01", required: false}
+              - {label: "产品主图 (Featured Image)", name: "image", widget: "image"}
+              - {label: "最低起订量与参考价", name: "price_moq", widget: "string", default: "MOQ: 500 pcs | $2.50", required: false}
+              - {label: "规格材质参数", name: "specs", widget: "text", default: "食品级标准材质，支持定制", required: false}
