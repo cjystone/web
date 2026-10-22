@@ -196,3 +196,4 @@ collections:
       - {label: "知识库标题 (Topic Title)", name: "title", widget: "string"}
       - {label: "所属知识类别 (Category)", name: "category", widget: "string"}
       - {label: "技术图解 / 结构图", name: "image", widget: "image", required: false}
+      - {label: "工程白皮书 / 核心内容 (Technical Content)", name: "body", widget: "markdown"}
