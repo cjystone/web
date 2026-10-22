@@ -1,28 +1,13 @@
 backend:
   name: github
-  repo: cjystone/web
-  branch: main
-  base_url: https://decap-cms-oauth.vercel.app
-  auth_endpoint: api/auth
-
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
-
+  repo: user/repo
+media_folder: "assets/images"
+public_folder: "/assets/images"
 collections:
-  - name: "products_database"
-    label: "📦 网站产品库"
-    delete: false
-    files:
-      - name: "product_list"
-        label: "管理所有产品"
-        file: "content/products.json"
-        fields:
-          - label: "产品列表 (在此添加新产品)"
-            name: "items"
-            widget: "list"
-            fields:
-              - {label: "产品标题 (Title)", name: "title", widget: "string"}
-              - {label: "产品型号 (SKU / Model)", name: "model", widget: "string", default: "MODEL-01", required: false}
-              - {label: "产品主图 (Featured Image)", name: "image", widget: "image"}
-              - {label: "最低起订量与参考价", name: "price_moq", widget: "string", default: "MOQ: 500 pcs | $2.50", required: false}
-              - {label: "规格材质参数", name: "specs", widget: "text", default: "食品级标准材质，支持定制", required: false}
+  - name: "posts"
+    label: "Post"
+    folder: "_posts"
+    create: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
