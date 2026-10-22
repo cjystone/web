@@ -3,84 +3,98 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>外贸网站管理后台 - 成员登录</title>
+  <title>网站管理后台 - 账号登录</title>
   <style>
-    /* 登录遮罩层 */
-    #login-modal {
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f8fafc;
+    }
+    #login-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: #f1f5f9;
+      background: #0f172a;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 999999;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    .login-box {
+    .auth-card {
       background: #ffffff;
-      padding: 35px 30px;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      padding: 36px 32px;
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
       width: 100%;
       max-width: 380px;
+      box-sizing: border-box;
     }
-    .login-box h2 {
+    .auth-card h2 {
       margin: 0 0 8px 0;
-      font-size: 20px;
+      font-size: 22px;
       color: #0f172a;
       text-align: center;
     }
-    .login-box p {
+    .auth-card p {
       margin: 0 0 24px 0;
       font-size: 13px;
       color: #64748b;
       text-align: center;
     }
-    .input-group {
+    .form-group {
       margin-bottom: 16px;
     }
-    .input-group label {
+    .form-group label {
       display: block;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       color: #334155;
       margin-bottom: 6px;
     }
-    .input-group input {
+    .form-group input {
       width: 100%;
       padding: 10px 12px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
-      box-sizing: border-box;
       font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
     }
-    .btn-submit {
+    .form-group input:focus {
+      border-color: #1b4d3e;
+      box-shadow: 0 0 0 2px rgba(27,77,62,0.2);
+    }
+    .btn-login {
       width: 100%;
       padding: 11px;
       background: #1b4d3e;
-      color: #fff;
+      color: #ffffff;
       border: none;
       border-radius: 6px;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 10px;
     }
-    .btn-submit:hover { background: #143a2f; }
-    .extra-links {
+    .btn-login:hover {
+      background: #143a2f;
+    }
+    .sub-actions {
       display: flex;
-      justify-content: flex-end;
-      margin-top: 14px;
-    }
-    .extra-links a {
+      justify-content: space-between;
+      margin-top: 16px;
       font-size: 12px;
+    }
+    .sub-actions a {
       color: #2563eb;
       text-decoration: none;
       cursor: pointer;
     }
+    .sub-actions a:hover {
+      text-decoration: underline;
+    }
 
-    /* 顶部登录状态与退出工具条 */
-    #user-topbar {
+    /* 顶部控制栏 */
+    #admin-toolbar {
       position: fixed;
       top: 10px;
       right: 20px;
@@ -89,186 +103,185 @@
       align-items: center;
       gap: 12px;
       background: rgba(255, 255, 255, 0.95);
-      padding: 6px 14px;
+      border: 1px solid #e2e8f0;
+      padding: 6px 16px;
       border-radius: 30px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
       font-size: 13px;
       color: #334155;
     }
-    .action-link {
-      color: #2563eb;
+    .tool-btn {
+      background: none;
+      border: none;
       cursor: pointer;
+      font-size: 13px;
       font-weight: 500;
-      text-decoration: underline;
+      padding: 0;
     }
-    .action-logout {
+    .tool-btn-change {
+      color: #2563eb;
+    }
+    .tool-btn-logout {
       color: #ef4444;
-      cursor: pointer;
-      font-weight: 500;
+      margin-left: 6px;
     }
   </style>
-</head>
-<body>
-
-  <!-- 独立账号登录弹窗 -->
-  <div id="login-modal">
-    <div class="login-box">
-      <h2>网站管理后台</h2>
-      <p>请输入分配的邮箱或手机号登录</p>
-      
-      <div class="input-group">
-        <label>账号 (邮箱 / 手机号)</label>
-        <input type="text" id="login-user" placeholder="name@company.com 或 138..." required />
-      </div>
-
-      <div class="input-group">
-        <label>登录密码</label>
-        <input type="password" id="login-pass" placeholder="输入密码" required />
-      </div>
-
-      <button class="btn-submit" onclick="handleLogin()">登 录</button>
-
-      <div class="extra-links">
-        <a onclick="handleSelfChangePassword()">修改我的密码</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- 登录成功后的顶部状态条 -->
-  <div id="user-topbar">
-    <span>当前用户: <strong id="current-user-tag"></strong></span>
-    <span class="action-link" onclick="handleSelfChangePassword()">修改密码</span>
-    <span class="action-logout" onclick="handleLogout()">退出登录</span>
-  </div>
 
   <script>
-    const REPO_USER = "cjystone";
-    const REPO_NAME = "web";
+    // ==========================================
+    // 1. 用户白名单与密码体系
+    // 管理员可以在下方直接新增/编辑允许登录的手机号或邮箱，以及初始密码
+    // ==========================================
+    const DEFAULT_ACCOUNTS = {
+      "admin@fjwmkc.com": "admin888",
+      "13800000000": "123456",
+      "sales@fjwmkc.com": "123456"
+    };
 
-    // 页面初始化检查登录状态
+    // 初始化用户存储
+    function initUserDatabase() {
+      let db = localStorage.getItem("system_user_db");
+      if (!db) {
+        localStorage.setItem("system_user_db", JSON.stringify(DEFAULT_ACCOUNTS));
+      }
+    }
+    initUserDatabase();
+
+    function getUserDb() {
+      try {
+        return JSON.parse(localStorage.getItem("system_user_db")) || DEFAULT_ACCOUNTS;
+      } catch (e) {
+        return DEFAULT_ACCOUNTS;
+      }
+    }
+
+    // 2. 检查会话状态
     window.addEventListener("DOMContentLoaded", () => {
-      const authUser = sessionStorage.getItem("current_login_account");
-      if (authUser) {
-        unlockDashboard(authUser);
+      const activeUser = sessionStorage.getItem("active_login_user");
+      if (activeUser) {
+        unlockDashboard(activeUser);
       }
     });
 
-    // 1. 登录验证逻辑
-    async function handleLogin() {
-      const uInput = document.getElementById("login-user").value.trim();
-      const pInput = document.getElementById("login-pass").value;
+    // 3. 执行登录操作
+    function executeLogin() {
+      const userInput = document.getElementById("auth-user").value.trim();
+      const passInput = document.getElementById("auth-pass").value;
 
-      if (!uInput || !pInput) {
-        alert("请输入完整的账号和密码！");
+      if (!userInput || !passInput) {
+        alert("请输入完整的用户名和密码！");
         return;
       }
 
-      // 优先检查本地是否修改过该账号密码
-      const localStoredPass = localStorage.getItem("user_pass_" + uInput);
-
-      try {
-        // 从 GitHub 仓库读取该用户数据
-        const res = await fetch(`https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/main/content/staff/${encodeURIComponent(uInput)}.md`);
-        
-        if (!res.ok) {
-          alert("账号不存在！请联系管理员在【后台账号管理】中创建您的邮箱或手机号。");
-          return;
-        }
-
-        const rawContent = await res.text();
-        
-        // 提取初始密码配置
-        let initialPass = "123456";
-        const passMatch = rawContent.match(/password:\s*["']?(.*?)["']?\s*$/m);
-        if (passMatch && passMatch[1]) {
-          initialPass = passMatch[1].trim();
-        }
-
-        // 当前有效密码（修改过以修改后的为准，否则使用初始密码）
-        const validPassword = localStoredPass || initialPass;
-
-        if (pInput === validPassword) {
-          sessionStorage.setItem("current_login_account", uInput);
-          unlockDashboard(uInput);
-        } else {
-          alert("密码错误，请重新输入！");
-        }
-      } catch (err) {
-        alert("网络连接异常，无法验证账号，请稍后重试！");
+      const db = getUserDb();
+      if (!(userInput in db)) {
+        alert("账号不存在！请使用配置的邮箱或手机号。");
+        return;
       }
+
+      if (db[userInput] !== passInput) {
+        alert("登录密码错误，请重新输入！");
+        return;
+      }
+
+      // 验证成功
+      sessionStorage.setItem("active_login_user", userInput);
+      unlockDashboard(userInput);
     }
 
-    // 2. 自助修改密码逻辑
-    async function handleSelfChangePassword() {
-      const uInput = prompt("请输入您的登录账号 (邮箱或手机号)：");
-      if (!uInput) return;
+    // 4. 自助修改密码（同事可随时自行修改自己的密码）
+    function executeChangePassword() {
+      const db = getUserDb();
+      const targetUser = prompt("请输入您要修改密码的账号 (邮箱或手机号)：");
+      if (!targetUser) return;
 
-      const oldPass = prompt("请输入原密码：");
-      if (!oldPass) return;
-
-      // 获取当前密码并验证
-      const localStoredPass = localStorage.getItem("user_pass_" + uInput);
-      try {
-        const res = await fetch(`https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/main/content/staff/${encodeURIComponent(uInput)}.md`);
-        if (!res.ok) {
-          alert("账号不存在！");
-          return;
-        }
-        const rawContent = await res.text();
-        let initialPass = "123456";
-        const passMatch = rawContent.match(/password:\s*["']?(.*?)["']?\s*$/m);
-        if (passMatch && passMatch[1]) initialPass = passMatch[1].trim();
-
-        const validPassword = localStoredPass || initialPass;
-
-        if (oldPass !== validPassword) {
-          alert("原密码错误，修改中止！");
-          return;
-        }
-
-        const newPass1 = prompt("请输入新密码：");
-        if (!newPass1 || newPass1.trim() === "") {
-          alert("新密码不能为空！");
-          return;
-        }
-        const newPass2 = prompt("请再次确认新密码：");
-        if (newPass1 !== newPass2) {
-          alert("两次新密码输入不一致，修改失败！");
-          return;
-        }
-
-        // 保存新密码
-        localStorage.setItem("user_pass_" + uInput, newPass1.trim());
-        alert("新密码设置成功！下次请使用新密码登录。");
-      } catch (err) {
-        alert("验证超时，请重试。");
+      if (!(targetUser in db)) {
+        alert("未找到该账号，无法修改！");
+        return;
       }
+
+      const oldPass = prompt("请输入当前旧密码：");
+      if (oldPass !== db[targetUser]) {
+        alert("原密码验证错误，禁止修改！");
+        return;
+      }
+
+      const newPass1 = prompt("请输入新的登录密码：");
+      if (!newPass1 || newPass1.trim() === "") {
+        alert("新密码不能为空！");
+        return;
+      }
+
+      const newPass2 = prompt("请再次输入新密码确认：");
+      if (newPass1 !== newPass2) {
+        alert("两次输入的新密码不一致，修改失败！");
+        return;
+      }
+
+      db[targetUser] = newPass1.trim();
+      localStorage.setItem("system_user_db", JSON.stringify(db));
+      alert("密码修改成功！下次登录请使用新密码。");
     }
 
-    // 3. 登录成功解除遮罩并启动 Decap CMS
-    function unlockDashboard(userAccount) {
-      document.getElementById("login-modal").style.display = "none";
-      document.getElementById("user-topbar").style.display = "flex";
-      document.getElementById("current-user-tag").innerText = userAccount;
-
-      // 仅在首次登录时挂载 CMS 程序
-      if (!window.CMS_LOADED) {
-        window.CMS_LOADED = true;
-        const script = document.createElement("script");
-        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
-        document.body.appendChild(script);
-      }
-    }
-
-    // 4. 退出登录
-    function handleLogout() {
-      if (confirm("确定要退出当前账号吗？")) {
-        sessionStorage.removeItem("current_login_account");
+    // 5. 退出登录
+    function executeLogout() {
+      if (confirm("确定要退出后台管理系统吗？")) {
+        sessionStorage.removeItem("active_login_user");
         localStorage.removeItem("decap-cms-user");
         localStorage.removeItem("netlify-cms-user");
         window.location.reload();
       }
     }
+
+    // 6. 解除登录遮罩并加载 CMS
+    function unlockDashboard(username) {
+      document.getElementById("login-overlay").style.display = "none";
+      document.getElementById("admin-toolbar").style.display = "flex";
+      document.getElementById("display-username").innerText = username;
+
+      if (!window.CMS_BOOTSTRAPPED) {
+        window.CMS_BOOTSTRAPPED = true;
+        const script = document.createElement("script");
+        script.src = "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+        document.body.appendChild(script);
+      }
+    }
   </script>
+</head>
+<body>
+
+  <!-- 独立登录界面 -->
+  <div id="login-overlay">
+    <div class="auth-card">
+      <h2>网站管理后台</h2>
+      <p>请输入指定的邮箱或手机号码登录</p>
+
+      <div class="form-group">
+        <label>账号 (邮箱 / 手机号码)</label>
+        <input type="text" id="auth-user" placeholder="如 13800000000 或 admin@fjwmkc.com" />
+      </div>
+
+      <div class="form-group">
+        <label>登录密码</label>
+        <input type="password" id="auth-pass" placeholder="输入密码" />
+      </div>
+
+      <button class="btn-login" onclick="executeLogin()">立即登录</button>
+
+      <div class="sub-actions">
+        <span>默认初始密码: 123456</span>
+        <a onclick="executeChangePassword()">修改密码</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 顶部状态栏 -->
+  <div id="admin-toolbar">
+    <span>当前登录: <strong id="display-username"></strong></span>
+    <span>|</span>
+    <button class="tool-btn tool-btn-change" onclick="executeChangePassword()">🔑 修改密码</button>
+    <button class="tool-btn tool-btn-logout" onclick="executeLogout()">🚪 退出</button>
+  </div>
+
 </body>
 </html>
