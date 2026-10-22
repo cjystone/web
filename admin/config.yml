@@ -42,7 +42,7 @@ collections:
               - {label: "栏目名称 (Label)", name: "label", widget: "string"}
               - {label: "链接地址 (URL/Anchor)", name: "url", widget: "string"}
 
-      # 个性化设置 (主题色、询盘配置、统计代码)
+      # 个性化设置
       - name: "customization"
         label: "个性化设置"
         file: "content/settings/customization.json"
@@ -50,8 +50,8 @@ collections:
           - {label: "主题主色调 (Brand Primary Color)", name: "primary_color", widget: "color", default: "#1b4d3e"}
           - {label: "辅助强调色 (Accent Color)", name: "accent_color", widget: "color", default: "#e67e22"}
           - {label: "询盘接收接口 (Formspree Endpoint)", name: "formspree_url", widget: "string", default: "https://formspree.io/f/xkjodygl"}
-          - {label: "WhatsApp 浮动客服号码 (含国标，如 +86138...)", name: "whatsapp_number", widget: "string", required: false}
-          - {label: "Google Analytics 追踪代码 (如 G-XXXXXXX)", name: "ga_id", widget: "string", required: false}
+          - {label: "WhatsApp 浮动客服号码", name: "whatsapp_number", widget: "string", required: false}
+          - {label: "Google Analytics 追踪代码", name: "ga_id", widget: "string", required: false}
 
       # 网站Banner图
       - name: "banners"
@@ -68,7 +68,7 @@ collections:
               - {label: "行动按钮文字 (Button Text)", name: "btn_text", widget: "string", default: "Contact Us"}
               - {label: "按钮跳转链接 (Button URL)", name: "btn_link", widget: "string", default: "#contact"}
 
-      # 关于我们 - 联系信息 / 工厂实力
+      # 关于我们 - 工厂实力
       - name: "about_us"
         label: "关于我们 - 工厂实力"
         file: "content/settings/about.json"
@@ -78,9 +78,12 @@ collections:
           - {label: "年产能 (Annual Output)", name: "capacity", widget: "string", default: "60,000,000 Pcs"}
           - {label: "全球出口国家数", name: "countries", widget: "string", default: "80+ Countries"}
           - {label: "全检质检率", name: "inspection_rate", widget: "string", default: "100% Inspection"}
-          - {label: "工厂与生产线实拍图", name: "factory_images", widget: "list", field: {label: "图片", widget: "image"}}
+          - label: "工厂与生产线实拍图"
+            name: "factory_images"
+            widget: "list"
+            field: {label: "图片", name: "image", widget: "image"}
 
-      # 联系我们 (联系方式与企业坐标)
+      # 联系我们
       - name: "contact_info"
         label: "联系我们"
         file: "content/settings/contact.json"
@@ -90,12 +93,12 @@ collections:
           - {label: "工厂与企业物理地址 (Factory Address)", name: "address", widget: "string"}
           - {label: "工作时间 (Working Hours)", name: "hours", widget: "string", default: "Mon - Sat: 8:30 - 18:00 (GMT+8)"}
 
-      # 网站其他图片管理 (认证证书、合作伙伴Logo等)
+      # 网站其他图片管理
       - name: "media_assets"
         label: "网站其他图片管理"
         file: "content/settings/media_assets.json"
         fields:
-          - label: "资质与认证证书 (Certifications: ISO, FDA, BSCI等)"
+          - label: "资质与认证证书"
             name: "cert_images"
             widget: "list"
             fields:
@@ -104,25 +107,29 @@ collections:
           - label: "合作品牌 / 客户 Logo"
             name: "partner_logos"
             widget: "list"
-            field: {label: "Logo 图标", widget: "image"}
+            field: {label: "Logo 图标", name: "image", widget: "image"}
 
   # ==========================================
-  # 2. 产品分类 (Product Categories)
+  # 2. 产品类别
   # ==========================================
-  - name: "product_categories"
+  - name: "product_categories_settings"
     label: "📂 产品类别"
-    file: "content/settings/product_categories.json"
-    fields:
-      - label: "产品分类列表"
-        name: "categories"
-        widget: "list"
+    delete: false
+    files:
+      - name: "categories_file"
+        label: "管理产品类别"
+        file: "content/settings/product_categories.json"
         fields:
-          - {label: "分类英文名称", name: "name", widget: "string"}
-          - {label: "分类标识/Slug (如 tumblers, titanium)", name: "slug", widget: "string"}
-          - {label: "分类封面图", name: "cover", widget: "image", required: false}
+          - label: "产品分类列表"
+            name: "categories"
+            widget: "list"
+            fields:
+              - {label: "分类英文名称", name: "name", widget: "string"}
+              - {label: "分类标识/Slug (如 tumblers, titanium)", name: "slug", widget: "string"}
+              - {label: "分类封面图", name: "cover", widget: "image", required: false}
 
   # ==========================================
-  # 3. 产品 (Products)
+  # 3. 产品
   # ==========================================
   - name: "products"
     label: "📦 产品"
@@ -134,28 +141,36 @@ collections:
       - {label: "所属类别标识 (Category Slug)", name: "category", widget: "string"}
       - {label: "产品型号 (Model / SKU)", name: "model", widget: "string"}
       - {label: "产品主图 (Featured Image)", name: "image", widget: "image"}
-      - {label: "产品图集 (Gallery Images)", name: "gallery", widget: "list", field: {label: "图片", widget: "image"}, required: false}
+      - label: "产品图集 (Gallery Images)"
+        name: "gallery"
+        widget: "list"
+        required: false
+        field: {label: "图片", name: "image", widget: "image"}
       - {label: "最低起订量 / 阶梯价格 (MOQ / Price)", name: "price_moq", widget: "string", default: "MOQ: 500 pcs | $2.50 - $3.80"}
       - {label: "材质规格与工艺 (Specifications)", name: "specs", widget: "text"}
       - {label: "真空与保温性能 (Thermal Performance)", name: "thermal", widget: "string", default: "Hot 24 Hours / Cold 48 Hours"}
       - {label: "产品详细描述 (Detailed Description)", name: "body", widget: "markdown"}
 
   # ==========================================
-  # 4. 新闻类别 (News Categories)
+  # 4. 新闻类别
   # ==========================================
-  - name: "news_categories"
+  - name: "news_categories_settings"
     label: "📂 新闻类别"
-    file: "content/settings/news_categories.json"
-    fields:
-      - label: "新闻分类列表"
-        name: "categories"
-        widget: "list"
+    delete: false
+    files:
+      - name: "categories_file"
+        label: "管理新闻类别"
+        file: "content/settings/news_categories.json"
         fields:
-          - {label: "分类名称 (如 Company News, Exhibitions)", name: "name", widget: "string"}
-          - {label: "分类标识 (Slug)", name: "slug", widget: "string"}
+          - label: "新闻分类列表"
+            name: "categories"
+            widget: "list"
+            fields:
+              - {label: "分类名称", name: "name", widget: "string"}
+              - {label: "分类标识 (Slug)", name: "slug", widget: "string"}
 
   # ==========================================
-  # 5. 新闻 (News)
+  # 5. 新闻
   # ==========================================
   - name: "news"
     label: "📰 新闻"
@@ -171,29 +186,18 @@ collections:
       - {label: "文章正文 (Article Body)", name: "body", widget: "markdown"}
 
   # ==========================================
-  # 6. 行业知识类别 (Knowledge Categories)
+  # 6. 行业知识类别
   # ==========================================
-  - name: "knowledge_categories"
+  - name: "knowledge_categories_settings"
     label: "📂 行业知识类别"
-    file: "content/settings/knowledge_categories.json"
-    fields:
-      - label: "行业知识分类列表"
-        name: "categories"
-        widget: "list"
+    delete: false
+    files:
+      - name: "categories_file"
+        label: "管理行业知识类别"
+        file: "content/settings/knowledge_categories.json"
         fields:
-          - {label: "分类名称 (如 Material Guides, Testing Standards)", name: "name", widget: "string"}
-          - {label: "分类标识 (Slug)", name: "slug", widget: "string"}
-
-  # ==========================================
-  # 7. 行业知识 / 白皮书 (Knowledge / Glossary)
-  # ==========================================
-  - name: "knowledge"
-    label: "💡 行业知识"
-    folder: "content/knowledge"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "知识库标题 (Topic Title)", name: "title", widget: "string"}
-      - {label: "所属知识类别 (Category)", name: "category", widget: "string"}
-      - {label: "技术图解 / 结构图", name: "image", widget: "image", required: false}
-      - {label: "工程白皮书 / 核心内容 (Technical Content)", name: "body", widget: "markdown"}
+          - label: "行业知识分类列表"
+            name: "categories"
+            widget: "list"
+            fields:
+              - {label: "分类名称", name:
