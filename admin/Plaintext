@@ -1,1 +1,21 @@
-admin/config.yml
+backend:
+  name: github
+  repo: cjystone/web
+  branch: main
+
+media_folder: "images/products"
+public_folder: "/images/products"
+
+collections:
+  - name: "products"
+    label: "产品管理 (Products)"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "产品名称 (Title)", name: "title", widget: "string"}
+      - {label: "产品型号 (Model / SKU)", name: "model", widget: "string"}
+      - {label: "产品主图 (Featured Image)", name: "image", widget: "image"}
+      - {label: "起订量 / 参考价 (MOQ / Price)", name: "moq", widget: "string", required: false}
+      - {label: "规格参数 (Specifications)", name: "specs", widget: "text", required: false}
+      - {label: "产品详细描述 (Description)", name: "body", widget: "markdown"}
