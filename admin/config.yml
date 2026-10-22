@@ -10,14 +10,14 @@ public_folder: "/images/uploads"
 
 collections:
   - name: "products"
-    label: "📦 产品管理 (可直接传图)"
+    label: "📦 产品管理"
     folder: "content/products"
     create: true
     slug: "{{slug}}"
     fields:
       - {label: "产品标题 (Title)", name: "title", widget: "string"}
-      - {label: "产品主图 (Featured Image)", name: "image", widget: "image", required: true}
-      - {label: "产品型号 (SKU / Model)", name: "model", widget: "string", default: "MODEL-01", required: false}
-      - {label: "最低起订量与参考价 (MOQ / Price)", name: "price_moq", widget: "string", default: "MOQ: 500 pcs | $2.50 - $3.80", required: false}
-      - {label: "规格材质参数 (Specifications)", name: "specs", widget: "text", default: "SUS304 / SUS316 食品级材质，双层真空保温保冷", required: false}
-      - {label: "产品详细介绍 (Description)", name: "body", widget: "markdown", required: false}
+      - {label: "产品型号 (Model / SKU)", name: "model", widget: "string", default: "MODEL-01", required: false}
+      - {label: "最低起订量与参考价", name: "price_moq", widget: "string", default: "MOQ: 500 pcs | $2.50 - $3.80", required: false}
+      - {label: "规格材质参数", name: "specs", widget: "text", default: "食品级标准材质，双层真空保温保冷", required: false}
+      - {label: "产品主图 (Featured Image)", name: "image", widget: "image", required: false}
+      - {label: "产品详细介绍", name: "body", widget: "markdown", required: false}
